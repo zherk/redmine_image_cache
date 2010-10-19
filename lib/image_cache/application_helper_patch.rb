@@ -6,7 +6,7 @@ module ImageCache
         unloadable
 
         def url_for_mogrified_attach(attach, mogrify_commands, url_options = {})
-          resized_attach = attach.mogrify(*mogrify_commands)
+          resized_attach = attach.mogrify(*mogrify_commands) rescue attach
           url_for(url_options.merge(:controller => 'attachments', :action => 'download', :id => resized_attach.id, :filename => resized_attach.filename))
         end
       end
