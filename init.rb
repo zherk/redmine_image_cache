@@ -4,7 +4,8 @@ require 'redmine'
 
 ActionController::Dispatcher.to_prepare :image_cache do
   def include_patch_unless_included(obj_name, patch_name)
-    {'user' => ['principal']}[obj_name.underscore].try(:each) { |dep| require_dependency(dep) }
+    dependencies = {'user' => ['principal'], 'application_helper' => ['redmine/themes']}
+    dependencies[obj_name.underscore].try(:each) { |dep| require_dependency(dep) }
     require_dependency(obj_name.underscore)
     require(patch_name.underscore)
     obj, patch = [obj_name, patch_name].collect(&:constantize)
