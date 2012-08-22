@@ -1,8 +1,4 @@
-config.gem 'mini_magick'
-
-require 'redmine'
-
-ActionController::Dispatcher.to_prepare :image_cache do
+Rails.configuration.to_prepare do
   def include_patch_unless_included(obj_name, patch_name)
     dependencies = {'user' => ['principal'], 'application_helper' => ['redmine/themes']}
     dependencies[obj_name.underscore].try(:each) { |dep| require_dependency(dep) }
