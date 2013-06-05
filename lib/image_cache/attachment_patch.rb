@@ -21,7 +21,7 @@ module ImageCache
             end
           end
 
-          file = File.open(image.path)
+          file = File.open(image.path,"rb")
           def file.size
             File.size(path)
           end
